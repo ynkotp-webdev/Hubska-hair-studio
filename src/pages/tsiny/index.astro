@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { site, prices, manicure } from '../../data/site';
+import photo from '../../assets/photos/tsiny.jpg';
+const groups = [...prices, manicure];
+---
+<Base title="Ціни: фарбування, стрижки, догляд, макіяж · Hubska Hair Studio" description="Прайс Hubska Hair Studio у Львові: фарбування від 1 500 ₴, AirTouch 7 000–8 500 ₴, стрижки, догляд, макіяж і зачіски.">
+  <div class="tp">
+    <Header />
+    <div class="tp-in">
+      <aside class="tp-side">
+        <div class="tp-photo">
+          <Image src={photo} alt="Шоколадний відтінок після тонування, вид зі спини, зал Hubska Hair Studio" widths={[400, 700, 1000]} sizes="(max-width: 900px) 0px, 30vw" loading="eager" fetchpriority="high" />
+        </div>
+      </aside>
+      <main class="tp-main">
+        <div class="tp-rail rail" aria-hidden="true"></div>
+        <h1>Ціни</h1>
+        <p class="tp-lead">Ціни взято з прайсу студії в Instagram, кадри від 5 лютого, 7 і 8 липня 2026. Перед записом уточніть вартість у Direct: остаточна сума залежить від довжини, густоти та витрати матеріалу.</p>
+        <p class="tp-len">У прайсі чотири довжини волосся, від 1 до 4. Свою довжину майстер назве на консультації.</p>
+        <nav class="tp-nav" aria-label="Розділи прайсу">
+          {groups.map((g) => <a href={`#${g.id}`}>{g.title}</a>)}
+        </nav>
+        {groups.map((g, i) => (
+          <details class="tp-group" id={g.id} open={i === 0}>
+            <summary><h2>{g.title}</h2><span>{g.from}</span></summary>
+            <dl>
+              {g.rows.map(([name, price, note]) => (
+                <div><dt>{name}{note && <small>{note}</small>}</dt><dd>{price}</dd></div>
+              ))}
+            </dl>
+            {g.note && <ul class="tp-note">{g.note.map((n) => <li>{n}</li>)}</ul>}
+          </details>
+        ))}
+        <div class="tp-book">
+          <a class="btn" href={site.direct}>Написати в Direct</a>
+          <a class="tp-tel" href={site.tel}>{site.phone}</a>
+          <address>{site.city}, {site.address}</address>
+        </div>
+      </main>
+    </div>
+    <Footer />
+  </div>
+</Base>
+
+<script>
+  // На десктопе все разделы раскрыты; на телефоне открыт первый, остальные по касанию. Якорь раскрывает свой раздел.
+  const all = [...document.querySelectorAll<HTMLDetailsElement>('.tp-group')];
+  const wide = matchMedia('(min-width: 901px)');
+  const sync = () => { if (wide.matches) all.forEach((d) => (d.open = true)); };
+  const hash = () => { const d = document.getElementById(location.hash.slice(1)); if (d instanceof HTMLDetailsElement) { d.open = true; d.scrollIntoView(); } };
+  sync(); hash();
+  wide.addEventListener('change', sync);
+  addEventListener('hashchange', hash);
+</script>
+
+<style>
+  .tp { position: relative; background: var(--color-ink); }
+  .tp-in { display: grid; grid-template-columns: minmax(0, 34fr) minmax(0, 66fr); }
+  .tp-side { padding-top: 92px; }
+  .tp-photo { position: sticky; top: 24px; margin-left: var(--px); }
+  .tp-photo :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 30%; max-height: calc(100svh - 48px); }
+  .tp-main { position: relative; padding: 128px var(--px) var(--sec) clamp(48px, 7vw, 112px); }
+  .tp-rail { position: absolute; inset-block: 0; left: clamp(14px, 2.6vw, 44px); }
+  .tp-main h1 { font-size: var(--text-d1); line-height: 0.92; }
+  .tp-lead { margin-top: 24px; max-width: 38em; }
+  .tp-len { margin-top: 12px; max-width: 38em; color: var(--color-sand); font-size: var(--text-t3); }
+  .tp-nav { margin: 28px 0 8px; display: flex; flex-wrap: wrap; gap: 0 22px; font-size: var(--text-t3); }
+  .tp-nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-decoration-color: var(--color-brass); text-underline-offset: 5px; }
+
+  /* Разделы стоят на одной сетке: название слева, цена справа, без линеек */
+  .tp-group { padding-top: clamp(36px, 4.5vw, 64px); max-width: 44em; scroll-margin-top: 12px; }
+  .tp-group summary { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; list-style: none; cursor: pointer; min-height: 44px; }
+  .tp-group summary::-webkit-details-marker { display: none; }
+  .tp-group summary h2 { font-size: var(--text-d2); line-height: 1; }
+  .tp-group summary span { color: var(--color-sand); white-space: nowrap; }
+  .tp-group dl { margin: 22px 0 0; display: grid; gap: 14px; }
+  .tp-group dl div { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
+  .tp-group dt { font-size: var(--text-t1); line-height: 1.35; }
+  .tp-group dt small { display: block; font-size: var(--text-t4); color: var(--color-sand); }
+  .tp-group dd { margin: 0; white-space: nowrap; }
+  .tp-note { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: var(--text-t3); color: var(--color-sand); }
+  .tp-book { margin-top: clamp(48px, 6vw, 88px); display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; }
+  .tp-tel { font-weight: 600; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+  .tp-book address { color: var(--color-sand); font-size: var(--text-t3); }
+
+  @media (min-width: 901px) {
+    .tp-group summary { cursor: default; pointer-events: none; }
+    .tp-group summary span { display: none; }
+  }
+  @media (max-width: 900px) {
+    .tp-in { grid-template-columns: minmax(0, 1fr); }
+    .tp-side { display: none; }
+    .tp-main { padding: 96px var(--px) var(--sec) calc(var(--px) + 14px); }
+    .tp-rail { left: 4px; }
+    /* название и «від N ₴» слева в два этажа, знак справа: влезает и в 320 px */
+    .tp-group summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 16px; row-gap: 2px; }
+    .tp-group summary span { grid-area: 2 / 1; font-size: var(--text-t3); }
+    .tp-group summary::after { content: "+"; grid-area: 1 / 2 / 3 / 3; font-size: var(--text-d3); line-height: 1; color: var(--color-gold); }
+    .tp-group[open] summary::after { content: "−"; }
+  }
+</style>

@@ -18,12 +18,13 @@
   --color-gold: #e1b763;
   --color-bronze: #674a17;
   --color-brass: #b69256;
+  --color-led: #f4ead2; /* тёплый белый LED-контура зеркала */
 
   --font-display: "Oranienbaum", "Times New Roman", serif;
   --font-text: "Fixel Text", "Segoe UI", system-ui, sans-serif;
 
   /* Шкала: четыре дисплейные и четыре текстовые ступени */
-  --text-d1: clamp(2.5rem, 8.4vw, 7.75rem);
+  --text-d1: clamp(2.5rem, 6.8vw, 6.25rem);
   --text-d1--line-height: 0.92;
   --text-d2: clamp(2.25rem, 5vw, 4.5rem);
   --text-d2--line-height: 1;
@@ -41,6 +42,9 @@
   --text-t4--line-height: 1.4;
 }
 
+/* Общие поля страницы и ритм секций */
+:root { --px: clamp(20px, 3.9vw, 56px); --sec: clamp(64px, 8.5vw, 128px); }
+
 html { background: var(--color-ink); color: var(--color-bone); font-family: var(--font-text); -webkit-text-size-adjust: 100%; scrollbar-color: var(--color-brass) var(--color-ink); }
 /* font-variant-numeric не трогаем: у Fixel lnum/tnum включают перечёркнутый ноль и семёрку */
 body { margin: 0; font-size: var(--text-t2); line-height: 1.55; }
@@ -49,6 +53,18 @@ body { margin: 0; font-size: var(--text-t2); line-height: 1.55; }
 h1, h2, h3 { font-family: var(--font-display); font-weight: 400; margin: 0; }
 p { margin: 0; }
 a { color: inherit; }
+address { font-style: normal; }
+
+/* Цитата: дословно, с источником */
+blockquote { margin: 0; display: grid; gap: 12px; }
+blockquote p { font-family: var(--font-display); font-size: var(--text-d4); line-height: 1.25; }
+cite { font-style: normal; font-size: var(--text-t4); color: var(--color-sand); }
+/* Длинная цитата-история: текстовой гарнитурой, чтобы читалась */
+blockquote.q-text p { font-family: var(--font-text); font-size: var(--text-t2); line-height: 1.55; }
+
+/* Полка: латунная линия под фактом о месте, как полки на мраморе в зале */
+.shelves { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; justify-items: start; font-size: var(--text-t3); color: var(--color-sand); }
+.shelves li { padding: 0 40px 7px 0; border-bottom: 2px solid var(--color-brass); }
 
 /* Латунная рейка: три тонкие линии, как рейки на стене зала и как пряди в S логотипа */
 .rail { width: 13px; border-inline: 1px solid var(--color-brass); }
@@ -58,3 +74,5 @@ a { color: inherit; }
 .btn:hover { background: var(--color-bone); }
 .lnk { text-decoration: underline; text-decoration-color: var(--color-brass); text-underline-offset: 5px; }
 .lnk:hover { text-decoration-color: currentColor; }
+/* Одиночная текстовая ссылка: тач-цель 44 px */
+.more { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--text-t3); }
