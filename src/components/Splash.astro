@@ -30,7 +30,7 @@ let n = 0;
       lock.style.transformOrigin = (a.left + a.width / 2 - l.left) + 'px ' + (a.top + a.height / 2 - l.top) + 'px';
       lock.style.transform = 'translate(' + (b.left + b.width / 2 - a.left - a.width / 2) + 'px,' + (b.top + b.height / 2 - a.top - a.height / 2) + 'px) scale(' + b.height / a.height + ')';
     }
-    if (!word || !word.offsetParent) w.style.opacity = 0; // на телефоне в шапке только монограмма
+    if (!word || !word.offsetParent) w.style.opacity = 0; // если названия в шапке нет, летит одна монограмма
     root.classList.add('intro-fly');
     setTimeout(end, fast === true ? 240 : 570);
   }
@@ -58,5 +58,10 @@ let n = 0;
   @keyframes mk-h { to { opacity: 1; } }
   @keyframes mk-type { to { opacity: 1; } }
   @keyframes splash-off { to { visibility: hidden; } }
-  @media (max-width: 760px) { .intro .splash-l { --k: 1.9; } }
+  /* на телефоне логотип шапки мельче и плотнее: заставка повторяет его геометрию */
+  @media (max-width: 760px) {
+    .intro .splash-l { --k: 1.9; gap: calc(9px * var(--k)); }
+    .intro .splash-m { height: calc(36px * var(--k)); }
+    .intro .splash-w { letter-spacing: .12em; }
+  }
 </style>

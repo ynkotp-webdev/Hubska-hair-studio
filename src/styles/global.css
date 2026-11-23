@@ -7,7 +7,7 @@
 @theme {
   /* Поля: чёрное (мрамор, логотип на аватаре) и бежевое (стена с логотипом). Hex сняты с фото. */
   --color-ink: #0c0b0a;
-  --color-marble: #191715;
+  --color-marble: #211d1a;
   --color-wall: #d8c4ae;
   /* Текст: оттенки полей, не серый */
   --color-bone: #f3ece2;
@@ -64,15 +64,21 @@ blockquote.q-text p { font-family: var(--font-text); font-size: var(--text-t2); 
 
 /* Полка: латунная линия под фактом о месте, как полки на мраморе в зале */
 .shelves { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; justify-items: start; font-size: var(--text-t3); color: var(--color-sand); }
-.shelves li { padding: 0 40px 7px 0; border-bottom: 2px solid var(--color-brass); }
+.shelves li { padding: 0 40px 7px 0; border-bottom: 3px solid var(--color-gold); }
 
-/* Латунная рейка: три тонкие линии, как рейки на стене зала и как пряди в S логотипа */
-.rail { width: 13px; border-inline: 1px solid var(--color-brass); }
-.rail::before { content: ""; position: absolute; inset-block: 0; left: 5px; width: 1px; background: var(--color-brass); }
+/* Латунная рейка: три полосы, как рейки на мраморе в зале и как три пряди в S логотипа */
+.rail { width: 19px; box-sizing: border-box; border-inline: 3px solid var(--color-gold); }
+.rail::before { content: ""; position: absolute; inset-block: 0; left: 5px; width: 3px; background: var(--color-gold); }
+@media (max-width: 760px) {
+  .rail { width: 12px; border-inline-width: 2px; }
+  .rail::before { left: 3px; width: 2px; }
+}
 
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; background: var(--color-gold); color: var(--color-ink); font-weight: 600; font-size: var(--text-t2); text-decoration: none; }
 .btn:hover { background: var(--color-bone); }
-.lnk { text-decoration: underline; text-decoration-color: var(--color-brass); text-underline-offset: 5px; }
-.lnk:hover { text-decoration-color: currentColor; }
+.lnk { text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: currentColor; text-underline-offset: 5px; }
+.lnk:hover { color: var(--color-gold); }
+.nw { white-space: nowrap; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 /* Одиночная текстовая ссылка: тач-цель 44 px */
 .more { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--text-t3); }
