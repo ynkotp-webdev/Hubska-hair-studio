@@ -161,11 +161,11 @@ const look = [...group('makiiazh').rows.filter(([n]) => /Денний|Вечір
         <dl>
           {care.rows.map(([name, price]) => <div><dt>{name.replace('Відновлення волосся ', 'Відновлення ')}</dt><dd>{price}</dd></div>)}
         </dl>
-        <blockquote class="q-text">
+        <p class="cr-note">{care.note?.[0]} Домашній догляд Olière Paris є в продажу в студії.</p>
+        <blockquote class="q-text cr-end">
           <p>Особливо рекомендуємо LÉBEL для освітленого, фарбованого, сухого та пористого волосся, яке потребує якісного професійного догляду.</p>
           <cite>Допис студії в Instagram, 8 жовтня 2026</cite>
         </blockquote>
-        <p class="cr-note">{care.note?.[0]} Домашній догляд Olière Paris є в продажу в студії.</p>
       </div>
       <div class="cr-photo">
         <Image src={obraz} alt="Макіяж і зачіска з локонами, робота студії" widths={[400, 800]} sizes="(max-width: 760px) 100vw, 28vw" loading="lazy" />
@@ -211,21 +211,22 @@ const look = [...group('makiiazh').rows.filter(([n]) => /Денний|Вечір
 </Base>
 
 <script>
-  // Видео не входит в стартовый вес: грузится после первого кадра и только когда движение разрешено
+  // Видео не входит в стартовый вес: файл запрашивается после события load и только когда движение разрешено.
+  // На время выбора Остапом варианты переключаются через ?v=1…4; на телефоне берётся лёгкая версия 540p.
   const v = document.querySelector<HTMLVideoElement>('.hero-video');
-  const n = Number(new URLSearchParams(location.search).get('v'));
-  if (v && n >= 2 && n <= 4) {
-    v.poster = JSON.parse(v.dataset.posters!)[n - 1];
-  }
   if (v) {
-    // на телефоне лёгкая версия 540p
+    const n = Number(new URLSearchParams(location.search).get('v'));
     const k = n >= 2 && n <= 4 ? n : 1;
-    v.querySelector('source')!.src = `/video/hero-${k}${matchMedia('(max-width: 760px)').matches ? '-m' : ''}.mp4`;
-    v.load();
-  }
-  if (v && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-    const go = () => { v.preload = 'auto'; v.play().catch(() => {}); };
-    document.readyState === 'complete' ? go() : addEventListener('load', go, { once: true });
+    if (k > 1) v.poster = JSON.parse(v.dataset.posters!)[k - 1];
+    if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      const go = () => {
+        v.querySelector('source')!.src = `/video/hero-${k}${matchMedia('(max-width: 760px)').matches ? '-m' : ''}.mp4`;
+        v.preload = 'auto';
+        v.load();
+        v.play().catch(() => {});
+      };
+      document.readyState === 'complete' ? go() : addEventListener('load', go, { once: true });
+    }
   }
 </script>
 
@@ -267,7 +268,7 @@ const look = [...group('makiiazh').rows.filter(([n]) => /Денний|Вечір
   .ba-pair :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
   .ba-pair span { position: absolute; left: 0; bottom: 0; padding: 4px 14px 5px; background: var(--color-marble); font-size: var(--text-t3); }
   .ba-note { display: grid; gap: 14px; align-content: start; justify-items: start; max-width: 36em; }
-  .ba-note .more, .cr-col .more { margin-top: -10px; }
+  .ba-note .more { margin-top: -10px; }
   .ba-note h3 { font-size: var(--text-d3); line-height: 1.08; }
 
   /* ---------- Власниця: бежевая стена, три колонки ---------- */
@@ -296,9 +297,10 @@ const look = [...group('makiiazh').rows.filter(([n]) => /Денний|Вечір
   .pr-wall b { font-weight: 600; color: var(--color-bone); white-space: nowrap; margin-right: 6px; }
 
   /* ---------- Догляд і образ: кадр посередине заходит на поле цен ---------- */
-  .cr { background: var(--color-marble); display: grid; grid-template-columns: minmax(0, 1fr) min(28vw, 400px) minmax(0, 1fr); column-gap: clamp(28px, 4.5vw, 72px); padding: 0 var(--px) var(--sec); }
+  .cr { background: var(--color-marble); display: grid; grid-template-columns: minmax(0, 1fr) min(28vw, 400px) minmax(0, 1fr); column-gap: clamp(28px, 4.5vw, 72px); padding: 0 var(--px) calc(var(--sec) * 0.75); }
+  /* кадр тянется на высоту текстовых колонок и на полполя заходит вверх, на поле цен */
   .cr-photo { margin-top: calc(var(--sec) * -0.5); position: relative; z-index: 1; }
-  .cr-photo :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 12%; }
+  .cr-photo :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; }
   .cr-col { padding-top: var(--sec); display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
   .cr-col dl { align-self: stretch; }
   .cr-col h2 { font-size: var(--text-d2); line-height: 1; }
@@ -306,7 +308,8 @@ const look = [...group('makiiazh').rows.filter(([n]) => /Денний|Вечір
   .cr-col dl div { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
   .cr-col dt { font-family: var(--font-display); font-size: var(--text-d4); line-height: 1.15; }
   .cr-col dd { margin: 0; white-space: nowrap; color: var(--color-sand); }
-  .cr-note { margin-top: auto; font-size: var(--text-t3); color: var(--color-sand); }
+  .cr-note { font-size: var(--text-t3); color: var(--color-sand); }
+  .cr-end, .cr-col .more { margin-top: auto; }
 
   /* ---------- Контакти: адрес крупно, факты на полках ---------- */
   .ct { position: relative; background: var(--color-ink); padding: var(--sec) var(--px) calc(var(--sec) * 0.6); }
@@ -357,8 +360,8 @@ const look = [...group('makiiazh').rows.filter(([n]) => /Денний|Вечір
     .cr-col { padding: 40px var(--px) 0; }
     .cr-col:first-child { padding-top: var(--sec); }
     .cr-photo { margin: 40px 0 0; }
-    .cr-photo :global(img) { aspect-ratio: 4 / 5; }
-    .cr-note { margin-top: 0; }
+    .cr-photo :global(img) { position: static; height: auto; aspect-ratio: 4 / 5; }
+    .cr-end, .cr-col .more { margin-top: 0; }
 
     .ct { padding-left: calc(var(--px) + 14px); }
     .ct-rail { left: 4px; }
