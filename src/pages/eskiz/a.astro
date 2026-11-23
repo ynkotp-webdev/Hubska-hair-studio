@@ -3,14 +3,14 @@
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
-import mid from '../../assets/eskiz/a-mid.jpg';
+import hair from '../../assets/eskiz/a-blond.jpg';
 
 // Положення позначок умовне (плечі, лопатки, середина спини, талія): звірити зі шкалою салону.
 const scale = [
-  { n: 1, at: 0.42 },
-  { n: 2, at: 0.58 },
-  { n: 3, at: 0.74 },
-  { n: 4, at: 0.9 },
+  { n: 1, at: 0.55 },
+  { n: 2, at: 0.67 },
+  { n: 3, at: 0.8 },
+  { n: 4, at: 0.93 },
 ];
 const rows = [
   ['Фарбування кореня', '1 500–2 000 ₴'],
@@ -24,7 +24,7 @@ const rows = [
   <div class="a">
     <Header />
     <div class="a-photo">
-      <Image src={mid} alt="Мідне волосся до талії після фарбування, вид зі спини, зал Hubska Hair Studio" widths={[360, 540, 875]} sizes="(max-width: 760px) 80vw, 30vw" loading="eager" fetchpriority="high" />
+      <Image src={hair} alt="Блонд після корекції AirTouch, вид зі спини, полиці залу Hubska Hair Studio" widths={[360, 540, 875]} sizes="(max-width: 760px) 80vw, 30vw" loading="eager" fetchpriority="high" />
     </div>
     <div class="a-rail rail" aria-hidden="true"></div>
     <ol class="a-scale" aria-label="Шкала довжин волосся з прайсу">
