@@ -1,0 +1,30 @@
+---
+import Monogram from './Monogram.astro';
+---
+<header class="hd">
+  <a href="/" class="hd-logo" aria-label="Hubska Hair Studio, головна">
+    <span data-logo class="hd-mono"><Monogram /></span>
+    <span class="hd-word">Hubska<br />Hair Studio</span>
+  </a>
+  <nav class="hd-nav" aria-label="Розділи">
+    <a href="#roboty">Роботи</a><a href="/tsiny/">Ціни</a><a href="#vlasnytsia">Власниця</a><a href="#kontakty">Контакти</a>
+  </nav>
+  <a class="hd-tel" href="tel:+380953404593">095 340 4593</a>
+</header>
+<style>
+  .hd { position: absolute; inset: 0 0 auto; z-index: 5; display: flex; align-items: center; gap: 40px; padding: 18px clamp(20px, 3.9vw, 56px); font-size: var(--text-t3); }
+  .hd-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; min-height: 44px; }
+  .hd-mono { display: block; height: 44px; color: var(--color-gold); }
+  .hd-mono :global(svg) { height: 100%; width: auto; display: block; }
+  .hd-word { font-size: var(--text-t4); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; line-height: 1.25; }
+  .hd-nav { display: flex; gap: 28px; margin-left: auto; }
+  .hd-nav a, .hd-tel { text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+  .hd-nav a:hover, .hd-tel:hover { color: var(--color-gold); }
+  .hd-tel { font-weight: 600; }
+  @media (max-width: 760px) {
+    .hd { gap: 12px; padding-block: 12px; }
+    .hd-nav, .hd-word { display: none; }
+    .hd-mono { height: 40px; }
+    .hd-tel { margin-left: auto; }
+  }
+</style>

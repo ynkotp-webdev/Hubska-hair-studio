@@ -1,0 +1,61 @@
+---
+// ЕСКІЗ C «Дзеркало»: стіна залу як композиція. Мармур, латунна рейка, арка дзеркала з LED-контуром, у дзеркалі волосся в русі.
+import { getImage } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import posterSrc from '../../assets/eskiz/c-poster.jpg';
+const poster = await getImage({ src: posterSrc, width: 540, format: 'webp' });
+---
+<Base title="Ескіз C · Дзеркало · Hubska Hair Studio" splash>
+  <div class="c">
+    <Header />
+    <section class="c-hero">
+      <div class="c-text">
+        <h1>Колористи у&nbsp;Львові</h1>
+        <p class="c-lead">AirTouch, блонд, складні техніки, виправлення невдалих фарбувань. Працюємо вдвох, щоб ви менше часу провели в кріслі.</p>
+        <a class="btn" href="https://ig.me/m/hubska.hair.lviv">Написати в Direct</a>
+        <ul class="c-shelves">
+          <li><address>вул. Замарстинівська, 36</address></li>
+          <li>пн–пт 10:00–19:00, сб 10:00–17:00</li>
+        </ul>
+      </div>
+      <div class="c-rail rail" aria-hidden="true"></div>
+      <div class="c-arch">
+        <video class="c-video" muted loop playsinline preload="none" poster={poster.src} aria-label="Рожевий блонд із хвилями після фарбування, волосся в русі">
+          <source src="/eskiz/c-loop.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  // Відео не входить у стартову вагу: вантажиться після першого кадру і лише коли рух дозволено
+  const v = document.querySelector<HTMLVideoElement>('.c-video');
+  if (v && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    addEventListener('load', () => { v.preload = 'auto'; v.play().catch(() => {}); }, { once: true });
+  }
+</script>
+
+<style>
+  .c { position: relative; background: var(--color-marble); --px: clamp(20px, 3.9vw, 56px); }
+  .c-hero { position: relative; min-height: 100svh; box-sizing: border-box; display: grid; grid-template-columns: 1fr 13px minmax(280px, 30vw); column-gap: clamp(28px, 4vw, 64px); padding: 0 calc(var(--px) + 6vw) 0 var(--px); overflow: clip; }
+  .c-text { align-self: end; padding-bottom: 56px; display: grid; gap: 26px; justify-items: start; }
+  .c-text h1 { font-size: var(--text-d1); line-height: 0.92; }
+  .c-lead { font-size: var(--text-t1); max-width: 27em; }
+  .c-shelves { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 14px; font-size: var(--text-t3); color: var(--color-sand); }
+  .c-shelves li { padding: 0 44px 8px 0; border-bottom: 2px solid var(--color-brass); width: max-content; }
+  .c-shelves address { font-style: normal; }
+  .c-rail { position: relative; }
+  .c-arch { align-self: end; height: calc(100svh - 124px); min-height: 480px; border-radius: 999px 999px 0 0; padding: 7px 7px 0; border: 3px solid #f4ead2; border-bottom: 0; box-sizing: border-box; }
+  .c-video { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 999px 999px 0 0; background: var(--color-ink); }
+
+  @media (max-width: 760px) {
+    .c-hero { min-height: 0; grid-template-columns: 13px 1fr; grid-template-rows: auto auto; column-gap: 18px; padding: 76px var(--px) 0; }
+    .c-rail { grid-column: 1; grid-row: 1 / 3; }
+    .c-arch { grid-column: 2; grid-row: 1; height: 46svh; min-height: 300px; width: 74%; justify-self: end; border-bottom: 3px solid #f4ead2; padding-bottom: 7px; border-radius: 999px 999px 0 0; }
+    .c-text { grid-column: 2; grid-row: 2; padding: 22px 0 40px; gap: 16px; justify-items: stretch; }
+    .c-lead { font-size: var(--text-t3); }
+    .c-shelves { margin-top: 6px; }
+  }
+</style>

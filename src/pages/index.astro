@@ -1,0 +1,20 @@
+---
+// Тимчасова сторінка етапу A: перелік ескізів першого екрана. Після вибору напряму тут буде головна.
+import Base from '../layouts/Base.astro';
+const list = [
+  ['/eskiz/a/', 'A · Довжина', 'волосся як лінійка ціни'],
+  ['/eskiz/b/', 'B · Полотна', 'палітра зі справжніх робіт'],
+  ['/eskiz/c/', 'C · Дзеркало', 'стіна залу як композиція'],
+];
+---
+<Base title="Hubska Hair Studio · ескізи першого екрана">
+  <main style="padding: 56px clamp(20px, 3.9vw, 56px); display: grid; gap: 24px; max-width: 720px">
+    <h1 style="font-size: var(--text-d2); line-height: 1">Ескізи першого екрана</h1>
+    <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 4px">
+      {list.map(([href, name, idea]) => (
+        <li><a class="lnk" style="display: inline-flex; min-height: 44px; align-items: center" href={href}>{name}</a> <span style="color: var(--color-sand)">{idea}</span></li>
+      ))}
+    </ul>
+    <p style="color: var(--color-sand); font-size: var(--text-t3)">Заставка показується раз за сесію. Повторити: додати <code>?intro=1</code> до адреси ескізу.</p>
+  </main>
+</Base>

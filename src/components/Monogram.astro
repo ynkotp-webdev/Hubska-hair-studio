@@ -1,0 +1,26 @@
+---
+// Монограмма HS: ручная перерисовка для концепта, см. scripts/monogram.py и src/assets/SOURCES.md
+import mono from '../assets/brand/monogram.json';
+const { class: cls, draw = false, label } = Astro.props;
+const s = mono.shapes;
+---
+<svg viewBox="14 20 414 512" class={cls} fill="currentColor" role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'}>
+  {draw ? (
+    <>
+      <defs>
+        <mask id="mk-lock" maskUnits="userSpaceOnUse" x="0" y="0" width="440" height="550">
+          <path d={mono.axes.lock} pathLength="1" class="mk mk1" stroke="#fff" stroke-width="64" fill="none" />
+          <path d={mono.axes.lock2} pathLength="1" class="mk mk2" stroke="#fff" stroke-width="96" fill="none" />
+        </mask>
+        <mask id="mk-s" maskUnits="userSpaceOnUse" x="0" y="0" width="440" height="550">
+          <path d={mono.axes.s} pathLength="1" class="mk mk3" stroke="#fff" stroke-width="130" fill="none" />
+        </mask>
+      </defs>
+      <g mask="url(#mk-lock)"><path d={s.p} /><path d={s.qr} fill-rule="evenodd" /></g>
+      <g mask="url(#mk-s)"><path d={s.main} /><path d={s.hook} /></g>
+      <path d={s.h} class="mk-h" />
+    </>
+  ) : (
+    <><path d={s.h} /><path d={s.main} /><path d={s.hook} /><path d={s.p} /><path d={s.qr} fill-rule="evenodd" /></>
+  )}
+</svg>

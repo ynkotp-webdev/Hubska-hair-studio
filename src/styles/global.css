@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@font-face { font-family: "Oranienbaum"; src: url("/fonts/Oranienbaum-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Fixel Text"; src: url("/fonts/FixelText-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Fixel Text"; src: url("/fonts/FixelText-SemiBold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+@theme {
+  /* Поля: чёрное (мрамор, логотип на аватаре) и бежевое (стена с логотипом). Hex сняты с фото. */
+  --color-ink: #0c0b0a;
+  --color-marble: #191715;
+  --color-wall: #d8c4ae;
+  /* Текст: оттенки полей, не серый */
+  --color-bone: #f3ece2;
+  --color-sand: #b9ab99;
+  --color-umber: #1b1612;
+  --color-clay: #5a4a3c;
+  /* Золото в двух версиях: для чёрного поля и для бежевого; латунь только линиями */
+  --color-gold: #e1b763;
+  --color-bronze: #674a17;
+  --color-brass: #b69256;
+
+  --font-display: "Oranienbaum", "Times New Roman", serif;
+  --font-text: "Fixel Text", "Segoe UI", system-ui, sans-serif;
+
+  /* Шкала: четыре дисплейные и четыре текстовые ступени */
+  --text-d1: clamp(2.5rem, 8.4vw, 7.75rem);
+  --text-d1--line-height: 0.92;
+  --text-d2: clamp(2.25rem, 5vw, 4.5rem);
+  --text-d2--line-height: 1;
+  --text-d3: clamp(1.75rem, 3vw, 2.5rem);
+  --text-d3--line-height: 1.08;
+  --text-d4: 1.5rem;
+  --text-d4--line-height: 1.15;
+  --text-t1: 1.1875rem;
+  --text-t1--line-height: 1.5;
+  --text-t2: 1.0625rem;
+  --text-t2--line-height: 1.55;
+  --text-t3: 0.9375rem;
+  --text-t3--line-height: 1.5;
+  --text-t4: 0.8125rem;
+  --text-t4--line-height: 1.4;
+}
+
+html { background: var(--color-ink); color: var(--color-bone); font-family: var(--font-text); -webkit-text-size-adjust: 100%; scrollbar-color: var(--color-brass) var(--color-ink); }
+/* font-variant-numeric не трогаем: у Fixel lnum/tnum включают перечёркнутый ноль и семёрку */
+body { margin: 0; font-size: var(--text-t2); line-height: 1.55; }
+::selection { background: var(--color-gold); color: var(--color-ink); }
+:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; margin: 0; }
+p { margin: 0; }
+a { color: inherit; }
+
+/* Латунная рейка: три тонкие линии, как рейки на стене зала и как пряди в S логотипа */
+.rail { width: 13px; border-inline: 1px solid var(--color-brass); }
+.rail::before { content: ""; position: absolute; inset-block: 0; left: 5px; width: 1px; background: var(--color-brass); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; background: var(--color-gold); color: var(--color-ink); font-weight: 600; font-size: var(--text-t2); text-decoration: none; }
+.btn:hover { background: var(--color-bone); }
+.lnk { text-decoration: underline; text-decoration-color: var(--color-brass); text-underline-offset: 5px; }
+.lnk:hover { text-decoration-color: currentColor; }
