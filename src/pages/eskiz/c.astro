@@ -4,8 +4,12 @@
 import { getImage } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
-import posterSrc from '../../assets/eskiz/c-poster.jpg';
-const poster = await getImage({ src: posterSrc, width: 720, format: 'webp' });
+import p1 from '../../assets/eskiz/c-1.jpg';
+import p2 from '../../assets/eskiz/c-2.jpg';
+import p3 from '../../assets/eskiz/c-3.jpg';
+import p4 from '../../assets/eskiz/c-4.jpg';
+// Чотири відео на вибір: ?v=1…4. Після вибору лишається одне.
+const posters = (await Promise.all([p1, p2, p3, p4].map((src) => getImage({ src, width: 720, format: 'webp' })))).map((p) => p.src);
 ---
 <Base title="Ескіз C · Дзеркало · Hubska Hair Studio" splash>
   <div class="c">
@@ -14,8 +18,8 @@ const poster = await getImage({ src: posterSrc, width: 720, format: 'webp' });
     <section class="c-hero">
       <h1><span>Колористи</span> <span>у&nbsp;Львові</span></h1>
       <div class="c-mirror">
-        <video class="c-video" muted loop playsinline preload="none" poster={poster.src} aria-label="Шоколадний відтінок після тонування, волосся в русі, зал Hubska Hair Studio">
-          <source src="/eskiz/c-loop.mp4" type="video/mp4" />
+        <video class="c-video" muted loop playsinline preload="none" poster={posters[0]} data-posters={JSON.stringify(posters)} aria-label="Волосся після фарбування в русі, робота Hubska Hair Studio">
+          <source src="/eskiz/c-1.mp4" type="video/mp4" />
         </video>
       </div>
       <div class="c-act">
@@ -34,6 +38,12 @@ const poster = await getImage({ src: posterSrc, width: 720, format: 'webp' });
 <script>
   // Відео не входить у стартову вагу: вантажиться після першого кадру і лише коли рух дозволено
   const v = document.querySelector<HTMLVideoElement>('.c-video');
+  const n = Number(new URLSearchParams(location.search).get('v'));
+  if (v && n >= 2 && n <= 4) {
+    v.poster = JSON.parse(v.dataset.posters!)[n - 1];
+    v.querySelector('source')!.src = `/eskiz/c-${n}.mp4`;
+    v.load();
+  }
   if (v && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
     const go = () => { v.preload = 'auto'; v.play().catch(() => {}); };
     document.readyState === 'complete' ? go() : addEventListener('load', go, { once: true });

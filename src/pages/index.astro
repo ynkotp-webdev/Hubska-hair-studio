@@ -2,13 +2,15 @@
 // Тимчасова сторінка етапу A: перелік ескізів першого екрана. Після вибору напряму тут буде головна.
 import Base from '../layouts/Base.astro';
 const list = [
-  ['/eskiz/c/', 'C · Дзеркало, версія 2', 'дзеркало залу посеред фрази, волосся в русі'],
-  ['/eskiz/a/', 'A · Довжина, блонд', 'волосся як лінійка ціни'],
+  ['/eskiz/c/', 'Відео 1', 'темне довге, помах, новий зал · 15.09.2026'],
+  ['/eskiz/c/?v=2', 'Відео 2', 'платиновий блонд · 29.07.2026'],
+  ['/eskiz/c/?v=3', 'Відео 3', 'медовий до талії · 31.07.2026'],
+  ['/eskiz/c/?v=4', 'Відео 4', 'карамельний · 14.08.2026'],
 ];
 ---
 <Base title="Hubska Hair Studio · ескізи першого екрана">
   <main style="padding: 56px clamp(20px, 3.9vw, 56px); display: grid; gap: 24px; max-width: 720px">
-    <h1 style="font-size: var(--text-d2); line-height: 1">Ескізи першого екрана</h1>
+    <h1 style="font-size: var(--text-d2); line-height: 1">Перший екран: вибір відео</h1>
     <ul style="margin: 0; padding: 0; list-style: none; display: grid; gap: 4px">
       {list.map(([href, name, idea]) => (
         <li><a class="lnk" style="display: inline-flex; min-height: 44px; align-items: center" href={href}>{name}</a> <span style="color: var(--color-sand)">{idea}</span></li>
