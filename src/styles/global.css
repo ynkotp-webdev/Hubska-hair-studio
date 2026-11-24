@@ -1,8 +1,6 @@
 @import "tailwindcss";
 
-@font-face { font-family: "Oranienbaum"; src: url("/fonts/Oranienbaum-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Fixel Text"; src: url("/fonts/FixelText-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Fixel Text"; src: url("/fonts/FixelText-SemiBold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+/* @font-face лежат в Base.astro: путь к файлам зависит от подпути GitHub Pages */
 
 @theme {
   /* Поля: чёрное (мрамор, логотип на аватаре) и бежевое (стена с логотипом). Hex сняты с фото. */
@@ -76,6 +74,9 @@ blockquote.q-text p { font-family: var(--font-text); font-size: var(--text-t2); 
 
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; background: var(--color-gold); color: var(--color-ink); font-weight: 600; font-size: var(--text-t2); text-decoration: none; }
 .btn:hover { background: var(--color-bone); }
+/* Второе действие рядом с главным: латунный контур, без заливки (полный прайс, «Подзвонити» в нижней панели) */
+.btn-line { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; box-sizing: border-box; border: 1px solid var(--color-brass); color: var(--color-bone); font-weight: 600; font-size: var(--text-t2); text-decoration: none; }
+.btn-line:hover { border-color: var(--color-gold); color: var(--color-gold); }
 .lnk { text-decoration: underline; text-decoration-thickness: 1px; text-decoration-color: currentColor; text-underline-offset: 5px; }
 .lnk:hover { color: var(--color-gold); }
 .nw { white-space: nowrap; }

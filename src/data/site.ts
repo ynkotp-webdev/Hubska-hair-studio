@@ -11,6 +11,8 @@ export const site = {
   maps: 'https://maps.app.goo.gl/cUh2D4x2SPK28cxW9', // из шапки Instagram салона
   google: 'https://g.co/kgs/VUzmmLN', // карточка Google из шапки Instagram
   rating: { value: '4,9', count: 156 }, // снято 21.11.2026, перед показом салону обновить
+  // отзыв Julia Vanchytska: ссылка из кнопки «Поділитися» в Google Maps, открывает сам отзыв (проверено 24.11.2026)
+  review: 'https://maps.app.goo.gl/rGDrboBr2WsPa81s5',
   hours: [
     ['Понеділок–п’ятниця', '10:00–19:00'],
     ['Субота', '10:00–17:00'],

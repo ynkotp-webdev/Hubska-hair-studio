@@ -1,14 +1,30 @@
 ---
 import Monogram from './Monogram.astro';
+import { site, url } from '../data/site';
 ---
 <footer class="ft">
   <span class="ft-mono"><Monogram /></span>
+  <nav class="ft-nav" aria-label="Розділи сайту">
+    <a href={url('/#roboty')}>Роботи</a>
+    <a href={url('/#do-i-pislia')}>До і після</a>
+    <a href={url('/tsiny/')}>Ціни</a>
+    <a href={url('/#kontakty')}>Контакти</a>
+    <a href={site.instagram}>Instagram</a>
+  </nav>
   <p>Концепт сайту від YonkaAgency, не офіційний сайт студії.</p>
 </footer>
 <style>
-  .ft { background: var(--color-ink); padding: 40px var(--px) 48px; display: flex; align-items: center; gap: 28px; font-size: var(--text-t4); color: var(--color-sand); }
+  .ft { background: var(--color-ink); padding: 40px var(--px) 48px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 40px; font-size: var(--text-t4); color: var(--color-sand); }
   .ft-mono { flex: none; height: 56px; color: var(--color-gold); }
   .ft-mono :global(svg) { display: block; height: 100%; width: auto; }
-  .ft p { max-width: 52em; }
-  @media (max-width: 760px) { .ft { align-items: flex-start; gap: 18px; padding-bottom: 32px; } .ft-mono { height: 44px; } }
+  .ft-nav { display: flex; flex-wrap: wrap; gap: 0 28px; font-size: var(--text-t3); color: var(--color-bone); }
+  .ft-nav a { text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+  .ft-nav a:hover { color: var(--color-gold); }
+  .ft p { margin-left: auto; max-width: 52em; }
+  @media (max-width: 760px) {
+    .ft { align-items: flex-start; gap: 8px 18px; padding-bottom: 32px; }
+    .ft-mono { height: 44px; }
+    .ft-nav { flex: 1 1 0; min-width: 0; gap: 0 20px; }
+    .ft p { margin-left: 0; flex-basis: 100%; }
+  }
 </style>

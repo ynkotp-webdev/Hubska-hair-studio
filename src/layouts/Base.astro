@@ -3,6 +3,9 @@ import '../styles/global.css';
 import Splash from '../components/Splash.astro';
 import { url } from '../data/site';
 const { title, description, splash = false, preloadImage } = Astro.props;
+const font = (family: string, file: string, weight: number) =>
+  `@font-face{font-family:"${family}";src:url("${url(`/fonts/${file}.woff2`)}") format("woff2");font-weight:${weight};font-display:swap}`;
+const fonts = font('Oranienbaum', 'Oranienbaum-Regular', 400) + font('Fixel Text', 'FixelText-Regular', 400) + font('Fixel Text', 'FixelText-SemiBold', 600);
 ---
 <!doctype html>
 <html lang="uk">
@@ -15,6 +18,7 @@ const { title, description, splash = false, preloadImage } = Astro.props;
     <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <link rel="preload" href={url('/fonts/Oranienbaum-Regular.woff2')} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={url('/fonts/FixelText-Regular.woff2')} as="font" type="font/woff2" crossorigin />
+    <style is:inline set:html={fonts}></style>
     {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
     {splash && (
       <script is:inline>
