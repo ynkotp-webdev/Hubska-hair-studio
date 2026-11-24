@@ -15,6 +15,18 @@ const fonts = font('Oranienbaum', 'Oranienbaum-Regular', 400) + font('Fixel Text
     <meta name="robots" content="noindex, nofollow" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <!-- Превью ссылки в Telegram, Viber, Instagram: адреса абсолютные, иначе мессенджеры картинку не подтянут -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="uk_UA" />
+    <meta property="og:site_name" content="Hubska Hair Studio" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:image" content={new URL(url('/og.jpg'), Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Hubska Hair Studio: колористи у Львові" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
     <link rel="preload" href={url('/fonts/Oranienbaum-Regular.woff2')} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={url('/fonts/FixelText-Regular.woff2')} as="font" type="font/woff2" crossorigin />
