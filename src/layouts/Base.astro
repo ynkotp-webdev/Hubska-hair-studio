@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Splash from '../components/Splash.astro';
+import { url } from '../data/site';
 const { title, description, splash = false, preloadImage } = Astro.props;
 ---
 <!doctype html>
@@ -11,9 +12,9 @@ const { title, description, splash = false, preloadImage } = Astro.props;
     <meta name="robots" content="noindex, nofollow" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preload" href="/fonts/Oranienbaum-Regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/FixelText-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
+    <link rel="preload" href={url('/fonts/Oranienbaum-Regular.woff2')} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={url('/fonts/FixelText-Regular.woff2')} as="font" type="font/woff2" crossorigin />
     {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
     {splash && (
       <script is:inline>

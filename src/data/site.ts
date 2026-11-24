@@ -10,13 +10,16 @@ export const site = {
   instagram: 'https://www.instagram.com/hubska.hair.lviv/',
   maps: 'https://maps.app.goo.gl/cUh2D4x2SPK28cxW9', // из шапки Instagram салона
   google: 'https://g.co/kgs/VUzmmLN', // карточка Google из шапки Instagram
-  rating: { value: '4,9', count: 156, date: '21.11.2026' },
+  rating: { value: '4,9', count: 156 }, // снято 21.11.2026, перед показом салону обновить
   hours: [
     ['Понеділок–п’ятниця', '10:00–19:00'],
     ['Субота', '10:00–17:00'],
     ['Неділя', 'вихідний'],
   ],
 };
+
+/** Внутренняя ссылка с учётом подпути GitHub Pages: url('/tsiny/') → '/Hubska-hair-studio/tsiny/'. */
+export const url = (p: string) => import.meta.env.BASE_URL.replace(/\/$/, '') + p;
 
 /** Неразрывные пробелы внутри сумм, перед знаком гривны и перед номером длины. */
 export const nb = (s: string) =>

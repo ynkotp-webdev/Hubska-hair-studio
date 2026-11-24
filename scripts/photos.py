@@ -37,19 +37,16 @@ def loop(video, start, dur, name, poster_at=None):
                         os.path.join(VID, name + suffix + '.mp4')], check=True)
     frame(video, poster_at if poster_at is not None else start, name + '.jpg')
 
-# Первый экран: видео в зеркале. Четыре варианта на выбор Остапа, после выбора остаётся один
+# Первый экран: видео в зеркале (из четырёх вариантов Остап выбрал этот 24.11.2026: подходит под гамму)
 loop('2026-10-27_DfAHoF7oCXH_01.mp4', 20.6, 6.0, 'hero-1')   # догляд Braé, очень длинные волосы, новый зал
-loop('2026-11-18_Df5Op2CsO0y_01.mp4', 17.95, 2.5, 'hero-2')  # корекція AirTouch, блонд, стена с логотипом
-loop('2026-09-15_DdUGHH_M7t2_01.mp4', 8.2, 5.0, 'hero-3')    # тёмные длинные, взмах: волосы самой колористки
-loop('2026-07-29_DbXa_arB5dd_01.mp4', 12.2, 5.2, 'hero-4')   # платиновый блонд, старый зал
 
-# Роботи: серия со спины в зале студии
-frame('2026-11-13_Dfsj8hiMGny_01.mp4', 6.0, 'robota-1.jpg')  # AirTouch, кадр результата в новом зале
-copy('color/2026-11-01_DfME0fUB0Be_01.jpg', 'robota-2.jpg')
-copy('color/2026-10-28_DfB1CynBbcq_01.jpg', 'robota-3.jpg')
-copy('color/2026-11-12_Dfo6sDTMz72_01.jpg', 'robota-4.jpg')
-copy('color/2026-10-22_DezSzLlKM-M_01.jpg', 'robota-5.jpg', STORY)
-copy('color/2026-10-05_DeGw3-UMB-Z_01.jpg', 'robota-6.jpg')
+# Роботи: самые красивые волосы из материала (выбор Остапа 24.11.2026: бразильский блонд и медный оставить)
+copy('color/2026-10-14_DedoyVXhKnO_01.jpg', 'robota-1.jpg')  # AirTouch; он же стоит у фарбування на странице цен
+copy('color/2026-11-12_Dfo6sDTMz72_01.jpg', 'robota-2.jpg')  # бразильський блонд
+copy('color/2026-11-01_DfME0fUB0Be_01.jpg', 'robota-3.jpg')  # однотонне, мідний
+copy('color/2025-11-23_DRZEpVNDEmL_01.jpg', 'robota-4.jpg', maxside=2160)  # рельєфне фарбування
+copy('color/2026-10-24_De39LKqst68_01.jpg', 'robota-5.jpg')  # бразильський блонд
+copy('color/2026-09-17_DdYGrHNuG3c_01.jpg', 'robota-6.jpg', STORY)  # тонування
 
 # До і після
 # 1. AirTouch, 12.11.2026
@@ -62,9 +59,9 @@ copy('interior/2026-11-18_Df5Op2CsO0y_01.jpg', 'pislia-2.jpg', (0.12, 0.25, 0.88
 frame('2026-11-17_Df2AUtxsKLA_01.mp4', 1.0, 'do-3.jpg', (0, 0, 1, 0.75))
 frame('2026-11-17_Df2AUtxsKLA_01.mp4', 17.5, 'pislia-3.jpg', (0, 0, 1, 0.75))
 
-# Власниця, сертификаты, догляд, образ, фото для страницы цен
+# Власниця, сертификаты, догляд, образ, манікюр (страница цен)
 copy('team/2026-01-16_DTkDnqQDJwX_01.jpg', 'olha.jpg')
 copy('team/2026-08-02_Dbhz5d_DGJG_02.jpg', 'sertyfikaty.jpg', maxside=1600)
 frame('2026-09-21_DdiZ18iu_ov_01.mp4', 7.6, 'dohliad.jpg')
 copy('makeup/2026-06-22_DZ4JlJuuSzh_01.jpg', 'obraz.jpg', STORY)
-copy('color/2026-09-17_DdYGrHNuG3c_01.jpg', 'tsiny.jpg', STORY)
+copy('nails/2026-02-17_DU3bU7KDOmC_01.jpg', 'manikiur.jpg')
